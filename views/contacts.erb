@@ -1,0 +1,19 @@
+<h2>Контакты</h2>
+
+<p><%=@mess%></p>
+
+<form action="/contacts" method="POST">
+
+<div class="form-group">
+    <label>Ваш e-mail:</label>
+    <input name="email" type="email" value="<%=@e_mail%>" class="form-control" placeholder="<%=@e_holder%>">
+</div>
+
+<div class="form-group">
+	<label>Ваше сообщение:</label>
+	<textarea class="form-control" rows="10" cols="45" name="text"></textarea>
+</div>
+
+<button type="submit" class="btn btn-primary">Отправить сообщение</button>
+
+</form>
