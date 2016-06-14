@@ -21,11 +21,10 @@
 </div>
  <div class="form-group">
     <label>Выбор мастера:</label>
-    <select class="form-control" name="master">    
-    <option selected > </option>    
-    <option>Walter White</option>
-    <option>Jessie Pinkman</option>
-    <option>Gus Fring</option>
+    <select class="form-control" name="master">        
+    <option <%= @master == 'Walter White' ? 'selected' : '' %>> Walter White</option>
+    <option <%= @master == 'Jessie Pinkman' ? 'selected' : '' %>> Jessie Pinkman</option>
+    <option <%= @master == 'Gus Fring' ? 'selected' : '' %>> Gus Fring</option>
   </select>
 </div> 
 
