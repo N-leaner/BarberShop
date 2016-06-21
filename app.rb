@@ -5,19 +5,22 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+def get_db
+	SQLite3::Database.new 'barber.db'
+end
+
 configure do
-	@db = SQLite3::Database.new 'barber.db'
-	@db.execute 'CREATE TABLE IF NOT EXISTS
+	db = get_db
+	db.execute 'CREATE TABLE IF NOT EXISTS
 	"Users" (
 	"id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
 	"username" VARCHAR, 
 	"phone" VARCHAR, 
-	"dateStamp" VARCHAR, 
+	"datestamp" VARCHAR, 
 	"barber" VARCHAR, 
 	"color" VARCHAR
-	);'
-	@db.close
-end
+	);'	
+end	
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -47,6 +50,20 @@ def w_to_f arr
 	" date: #{arr[2]}, time: #{arr[3]}, master: #{arr[4]}, color: #{arr[5]}\n"
 	output.close
 end
+
+def w_to_b arr
+	db = get_db
+	db.execute 'insert into Users 
+	(
+		username,
+		phone,
+		datestamp,
+		barber,
+		color
+	)
+	values
+	(?, ?, ?, ?, ?)', [arr[0], arr[1], arr[2]+' '+arr[3], arr[4], arr[5]]
+end	
 
 def w_to_c arr
 	output = File.open './public/contacts.txt','a'
@@ -90,6 +107,7 @@ post '/visit' do
 		arr << @master
 		arr << @color
 		w_to_f arr
+		w_to_b arr
 		if @user_phone != ''
 			@reminder = "Мы перезвоним Вам по номеру: #{@user_phone}, \nчтобы напомнить о визите"
 			#erb "Мы перезвоним Вам по номеру: #{@user_phone}, \nчтобы напомнить о визите"# или можно так			
