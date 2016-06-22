@@ -6,7 +6,9 @@ require 'pony'
 require 'sqlite3'
 
 def get_db
-	SQLite3::Database.new 'barber.db'
+	db=SQLite3::Database.new 'barber.db'
+	db.results_as_hash = true
+	return db
 end
 
 configure do
@@ -43,6 +45,11 @@ end
 get '/send_done' do	
 	erb :send_done
 end
+
+get '/show_users' do
+
+end	
+
 
 def w_to_f arr
 	output = File.open './public/users.txt', 'a'
