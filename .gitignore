@@ -6,3 +6,5 @@ public/users.txt
 barber.bd
 Create_Users.sql
 barber.db
+public/datetimepicker/jquery.datetimepicker.css
+public/datetimepicker/jquery.datetimepicker.min.js
