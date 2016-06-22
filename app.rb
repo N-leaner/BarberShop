@@ -46,10 +46,11 @@ get '/send_done' do
 	erb :send_done
 end
 
-get '/show_users' do
-
+get '/showusers' do
+	@db = get_db
+	#@cl = @db.closed?	
+	erb :showusers
 end	
-
 
 def w_to_f arr
 	output = File.open './public/users.txt', 'a'
