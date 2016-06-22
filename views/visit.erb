@@ -31,16 +31,9 @@
 <div class="row">
   <div class="col-xs-3">
     <div class="form-group">
-      <label>Дата записи</label>
-      <input value="<%=@date_visit%>" name="date_" type="date" class="form-control" placeholder="Введите дату записи">
+      <label>Дата и время записи</label>
+      <input id="datetimepicker" value="<%=@date_visit%>" name="date_" type="text" class="form-control" placeholder="Введите дату и время записи">      
     </div>  
-</div>
-
-  <div class="col-xs-3">
-     <div class="form-group">
-      <label>Время записи</label>
-      <input value="<%=@time_visit%>" name="time_" type="time" class="form-control" placeholder="Введите время записи">
-    </div>
 </div>
 
   <div class="col-xs-5">
@@ -70,6 +63,9 @@
 
 <script type="text/javascript">
  $(function(){
+
   $('#color').simplecolorpicker();
+  $('#datetimepicker').datetimepicker();
+
  })
  </script>
