@@ -1,21 +1,22 @@
 <div>	
-	<table class="table table-bordered" style="text-align: center;">
-
-		<tr class="success">
-			<td>Id</td>
-			<td>User</td>
-			<td>Phone</td>
-			<td>DateTime</td>
-		</tr>
-
-		<%@result.each do |row|%>
-			<tr>
-				<td><%=row['id']%></td>
-				<td><%=row['username']%></td>
-				<td><%=row['phone']%></td>
-				<td><%=row['datestamp']%></td>		
+	<table class="table table-striped">
+		<thead>
+			<tr>			
+			<th>Id</th>
+			<th>User</th>
+			<th>Phone</th>
+			<th>DateTime</th>
 			</tr>
-		<%end%>
-
+		</thead>
+		<tbody>
+			<%@result.each do |row|%>
+				<tr>
+					<td><%=row['id']%></td>
+					<td><%=row['username']%></td>
+					<td><%=row['phone']%></td>
+					<td><%=row['datestamp']%></td>		
+				</tr>
+			<%end%>			
+		</tbody>	
 	</table>
 </div>
