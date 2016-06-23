@@ -23,6 +23,10 @@ def create_users db
 	);'
 end	
 
+def is_barber_exists? db, name
+	db.execute('select name from Barbers where name=?',[name]).size > 0
+end
+
 def create_masters db
 	db.execute 'CREATE TABLE IF NOT EXISTS
 	"Barbers" (
@@ -31,12 +35,11 @@ def create_masters db
 	);'
 
 	arr = ['Walter White','Jessie Pinkman','Gus Fring']  
-    hh = db.execute 'select id from Barbers'
-    if hh.size == 0 
-    	arr.each do |name_|
-    		db.execute 'insert into Barbers (name) values (?)', [name_]
-    	end
-    end
+   	arr.each do |name_|
+   		if !is_barber_exists? db, name_
+			db.execute 'insert into Barbers (name) values (?)', [name_]
+		end
+	end
 end
 
 configure do
