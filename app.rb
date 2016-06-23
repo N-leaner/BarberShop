@@ -11,6 +11,15 @@ def get_db
 	return db
 end
 
+def is_barber_exists? db, name
+	db.execute('select name from Barbers where name=?',[name]).size > 0
+end
+
+def get_barbers
+	db = get_db
+	return db.execute 'select name from Barbers order by name'
+end	
+
 def create_users db
 	db.execute 'CREATE TABLE IF NOT EXISTS
 	"Users" (
@@ -23,10 +32,6 @@ def create_users db
 	);'
 end	
 
-def is_barber_exists? db, name
-	db.execute('select name from Barbers where name=?',[name]).size > 0
-end
-
 def create_masters db
 	db.execute 'CREATE TABLE IF NOT EXISTS
 	"Barbers" (
@@ -34,7 +39,7 @@ def create_masters db
 	"name" VARCHAR
 	);'
 
-	arr = ['Walter White','Jessie Pinkman','Gus Fring']  
+	arr = ['Walter White','Jessie Pinkman','Gus Fring', 'Barbara Brylska']  
    	arr.each do |name_|
    		if !is_barber_exists? db, name_
 			db.execute 'insert into Barbers (name) values (?)', [name_]
@@ -57,7 +62,7 @@ get '/about' do
 end
 
 get '/visit' do
-	@db = get_db
+	@result = get_barbers
 	erb :visit
 end
 
@@ -107,8 +112,8 @@ def w_to_c arr
 end	
 
 
-post '/visit' do
-	@db = get_db
+post '/visit' do	
+	@result = get_barbers
 	@user_name = params[:username].strip.capitalize
 	@user_phone = params[:user_telephone].strip
 	@date_visit = params[:date_].strip	

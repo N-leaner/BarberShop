@@ -22,7 +22,7 @@
 <label>Выбор мастера:</label>
   <select class="form-control" name="master"> 
 
-    <%@db.execute 'select name from Barbers order by name' do |row|%>
+    <%@result.each do |row|%>
       <option <%=@master == row['name'] ? 'selected' : '' %>> <%=row['name']%></option>
     <%end%>      
 
