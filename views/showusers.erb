@@ -8,7 +8,7 @@
 			<td>DateTime</td>
 		</tr>
 
-		<%@db.execute 'select * from Users order by Id desc' do |row|%>
+		<%@result.each do |row|%>
 			<tr>
 				<td><%=row['id']%></td>
 				<td><%=row['username']%></td>
