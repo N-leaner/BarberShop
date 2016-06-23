@@ -54,6 +54,7 @@ get '/about' do
 end
 
 get '/visit' do
+	@db = get_db
 	erb :visit
 end
 
@@ -68,8 +69,7 @@ get '/send_done' do
 end
 
 get '/showusers' do
-	@db = get_db
-	#@cl = @db.closed?	
+	@db = get_db	
 	erb :showusers
 end	
 
@@ -104,6 +104,7 @@ end
 
 
 post '/visit' do
+	@db = get_db
 	@user_name = params[:username].strip.capitalize
 	@user_phone = params[:user_telephone].strip
 	@date_visit = params[:date_].strip	
