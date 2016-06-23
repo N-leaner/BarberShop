@@ -11,8 +11,7 @@ def get_db
 	return db
 end
 
-configure do
-	db = get_db
+def create_users db
 	db.execute 'CREATE TABLE IF NOT EXISTS
 	"Users" (
 	"id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
@@ -21,7 +20,29 @@ configure do
 	"datestamp" VARCHAR, 
 	"barber" VARCHAR, 
 	"color" VARCHAR
-	);'	
+	);'
+end	
+
+def create_masters db
+	db.execute 'CREATE TABLE IF NOT EXISTS
+	"Barbers" (
+	"id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
+	"name" VARCHAR
+	);'
+
+	arr = ['Walter White','Jessie Pinkman','Gus Fring']  
+    hh = db.execute 'select id from Barbers'
+    if hh.size == 0 
+    	arr.each do |name_|
+    		db.execute 'insert into Barbers (name) values (?)', [name_]
+    	end
+    end
+end
+
+configure do
+	db = get_db	
+	create_users db
+	create_masters db
 end	
 
 get '/' do
